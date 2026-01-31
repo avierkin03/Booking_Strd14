@@ -70,6 +70,36 @@ def book_room(request):
         return render(request=request, template_name="rooms/booking.html", context=context)
     
     elif request.method == "POST":
-        pass
+        room_id = request.POST.get("room_id")
+        start_date = request.POST.get("start_date")
+        end_date = request.POST.get("end_date")
+
+        room = Room.objects.get(id = room_id)
+        context = {
+            "room": room,
+            "start_date": start_date,
+            "end_date": end_date
+        }
+        # перевіряємо коректність дат
+        if start_date > end_date:
+            return render(request=request, template_name="rooms/booking.html", context=context)
+        
+        # перевіряємо чи цей номер уже заброньований кимось
+        if Booking.objects.filter(room=room, start_time__lt=end_date, end_time__gt=start_date).exists():
+            return render(request=request, template_name="rooms/booking.html", context=context)
+
+        # створюємо нове бронювання
+        booking = Booking.objects.create(
+            user = request.user,
+            room = room,
+            start_time = start_date,
+            end_time = end_date
+        )
+
+        return render(request=request, template_name="rooms/success.html", context={"booking": booking})
+
+
+
+
 
 

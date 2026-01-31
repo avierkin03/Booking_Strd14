@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Бронювання успішно створено!</h1>
+    <p>Номер №{{ booking.room.number }} ({{ booking.room.category }})</p>
+    <p>Дати: {{ booking.start_time }} - {{ booking.end_time }}</p>
+    <p><a href="{% url 'main_page' %}">Повернутися на головну сторінку</a></p>
+{% endblock %}
