@@ -97,9 +97,3 @@ def book_room(request):
         )
 
         return render(request=request, template_name="rooms/success.html", context={"booking": booking})
-
-
-
-
-
-
