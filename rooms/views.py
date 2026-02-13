@@ -97,3 +97,9 @@ def book_room(request):
         )
 
         return render(request=request, template_name="rooms/success.html", context={"booking": booking})
+
+
+# Функція представлення сторінки "Історія бронювань"
+def booking_history(request):
+    bookings = Booking.objects.filter(user=request.user).order_by('-start_time')
+    return render(request, 'rooms/booking_history.html', {'bookings': bookings})

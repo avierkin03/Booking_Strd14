@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>Бронювання</h1>
-    <img src="{{ room.photo.url }}" style="width: 300px;">
-    <h3>Кімната №{{ room.number }} ({{ room.category }})</h3>
-    <p>Місць: {{ room.capacity }}</p>
-    <p>{{ room.description }}</p>
-    <p>Ціна: {{ room.price }} грн.</p>
+
+    <div class="room-details">
+        <img src="{{ room.photo.url }}" alt="Кімната №{{ room.number }}" class="room-image">
+        <h3>Кімната №{{ room.number }} ({{ room.category }})</h3>
+        <p>Місць: {{ room.capacity }}</p>
+        <p>{{ room.description }}</p>
+        <p>Ціна: {{ room.price }} грн.</p>
+    </div>
 
     <form method="POST">
         {% csrf_token %}
